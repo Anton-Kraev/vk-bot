@@ -13,7 +13,8 @@ def run():
 
                 if message == 'Отмена' and history.get(user_id) and \
                         (len(history[user_id]['current']) == 6 or
-                         (len(history[user_id]['current']) == 5 and history[user_id]['current'][-2] == 'мк')):
+                         (len(history[user_id]['current']) == 5 and
+                          (history[user_id]['current'][-2] == 'мк' or history[user_id]['current'][-1] == 'теория'))):
                     history[user_id]['current'] = history[user_id]['current'][:-1]
                     reject_bill(history[user_id]['bill'])
                     history[user_id]['bill'] = None
@@ -35,6 +36,9 @@ def run():
                         elif len(current) == 5 and current[-2] == 'мк':
                             for i, photo in enumerate(find(paths, current)):
                                 send_photo(user_id, str(i + 1), get_full_path(current, photo))
+                        elif len(current) == 5 and current[-1] == 'теория':
+                            for i, photo in enumerate(find(paths, current)):
+                                send_photo(user_id, photo, get_full_path(current, photo))
                         history[user_id] = {'current': ['Начать'], 'bill': None}
                         continue
                     else:
@@ -83,12 +87,23 @@ def run():
                     if current[-2] == 'мк':
                         history[user_id]['bill'] = create_bill(1)
                         send_carousel(user_id, 'Выбранная работа\n',
-                                      title='мк', description=f'мк вариант {current[-1][-1]}')
+                                      title='мк', description=f'мк вариант {current[-1][2:]}')
                         send_keyboard(user_id, 'Чтобы получить ответы на выбранный вариант, оплатите его по ссылке(qiwi)'
                                                ', нажав на кнопку "оплатить", а затем нажмите на кнопку "Проверить оплату".'
                                                'Чтобы вернуться к выбору заданий, нажмите на кнопку "Отмена"(не следует '
                                                'нажимать на кнопку "Отмена", если вы оплатили задание, но еще не получили'
                                                ' ответ, так как это может привести к утере оплаты)',
+                                      create_keyboard(['Проверить оплату', 'Отмена']))
+                    elif current[-1] == 'теория':
+                        history[user_id]['bill'] = create_bill(1)
+                        send_carousel(user_id, 'Выбранная работа\n',
+                                      title=current[-2], description=current[-1])
+                        send_keyboard(user_id,
+                                      'Чтобы получить ответы на теорию, оплатите их по ссылке(qiwi)'
+                                      ', нажав на кнопку "оплатить", а затем нажмите на кнопку "Проверить оплату".'
+                                      'Чтобы вернуться к выбору заданий, нажмите на кнопку "Отмена"(не следует '
+                                      'нажимать на кнопку "Отмена", если вы оплатили задание, но еще не получили'
+                                      ' ответ, так как это может привести к утере оплаты)',
                                       create_keyboard(['Проверить оплату', 'Отмена']))
                     else:
                         send_keyboard(user_id,
