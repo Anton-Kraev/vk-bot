@@ -22,28 +22,39 @@ def parse(path):
         json.dump(paths_dict, f)
 
 
+with open('photos.json', 'r') as f:
+    photos = json.load(f)
+
+
 def upload_photos(path):
-    photos = {}
     print('start uploading photos')
-    i = 0
+    i = len(photos)
+
     for dirname, _, filenames in os.walk(path):
         for filename in filenames:
             file = dirname.replace('\\', '/') + '/' + filename
-
-            i += 1
-            print(i, ' ' + filename)
 
             if filename[-6:-4] == '-0':
                 resized_photo = Image.open(file).resize((390, 240))
                 resized_photo.save(file)
 
+            if file in photos.keys():
+                continue
+
+            i += 1
+            print(i, ' ' + filename)
+
             photo = upload.photo_messages(file)[0]
             photos[file] = [str(photo["owner_id"]), str(photo["id"]), str(photo["access_key"])]
 
-    print('uploaded ', i)
     with open('photos.json', 'w') as f:
         json.dump(photos, f)
+    print('uploaded ', i)
 
 
 parse('Начать')
-upload_photos('Начать/3 сем/кратинты и ряды/дз2ч1 — копия/Вычисление координат центра масс поверхности с помощью поверхностного интеграла 1-го рода')
+try:
+    upload_photos('Начать')
+except:
+    with open('photos.json', 'w') as f:
+        json.dump(photos, f)
