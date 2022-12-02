@@ -38,7 +38,7 @@ def upload_photos(path):
                 resized_photo.save(file)
 
             photo = upload.photo_messages(file)[0]
-            photos[file] = photo
+            photos[file] = [str(photo["owner_id"]), str(photo["id"]), str(photo["access_key"])]
 
     print('uploaded ', i)
     with open('photos.json', 'w') as f:
@@ -46,4 +46,4 @@ def upload_photos(path):
 
 
 parse('Начать')
-upload_photos('Начать')
+upload_photos('Начать/3 сем/кратинты и ряды/дз2ч1 — копия/Вычисление координат центра масс поверхности с помощью поверхностного интеграла 1-го рода')

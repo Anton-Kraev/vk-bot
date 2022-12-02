@@ -48,7 +48,7 @@ def send_carousel(user_id, message, url='', title='', description=''):
 
     if url:
         photo = photos[url]
-        carousel["elements"][0]["photo_id"] = f'{photo["owner_id"]}_{photo["id"]}'
+        carousel["elements"][0]["photo_id"] = f'{photo[0]}_{photo[1]}'
         carousel["elements"][0]["action"] = {"type": "open_photo"}
     if title and description:
         carousel["elements"][0]["title"] = title
@@ -60,5 +60,5 @@ def send_carousel(user_id, message, url='', title='', description=''):
 
 def send_photo(user_id, message, url):
     photo = photos[url]
-    attachment = f'photo{photo["owner_id"]}_{photo["id"]}_{photo["access_key"]}'
+    attachment = f'photo{photo[0]}_{photo[1]}_{photo[2]}'
     vk.messages.send(user_id=user_id, message=message, random_id=get_random_id(), attachment=attachment)
