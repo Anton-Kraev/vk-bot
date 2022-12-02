@@ -1,7 +1,7 @@
 from dict import find
 from vk import longpoll, VkEventType, history, paths
 from vk_methods import send_message, send_photo, send_carousel, create_keyboard, send_keyboard, get_full_path
-from payment import create_bill, get_status, reject_bill
+from payment import create_bill, get_status, reject_bill, get_cost
 
 
 def run():
@@ -85,7 +85,7 @@ def run():
                         send_keyboard(user_id, 'Выберите тему:', create_keyboard(['Назад', 'Начать заново']))
                 if len(current) == 5:
                     if current[-2] == 'мк':
-                        history[user_id]['bill'] = create_bill(1)
+                        history[user_id]['bill'] = create_bill(get_cost(current))
                         send_carousel(user_id, 'Выбранная работа\n',
                                       title='мк', description=f'мк вариант {current[-1][2:]}')
                         send_keyboard(user_id, 'Чтобы получить ответы на выбранный вариант, оплатите его по ссылке(qiwi)'
@@ -95,7 +95,7 @@ def run():
                                                ' ответ, так как это может привести к утере оплаты)',
                                       create_keyboard(['Проверить оплату', 'Отмена']))
                     elif current[-1] == 'теория':
-                        history[user_id]['bill'] = create_bill(1)
+                        history[user_id]['bill'] = create_bill(get_cost(current))
                         send_carousel(user_id, 'Выбранная работа\n',
                                       title=current[-2], description=current[-1])
                         send_keyboard(user_id,
@@ -110,7 +110,7 @@ def run():
                                       'Найдите свое задание в списке(будьте внимательны, задания могут быть очень похожи):',
                                       create_keyboard(['Назад', 'Начать заново']))
                 if len(current) == 6:
-                    history[user_id]['bill'] = create_bill(1)
+                    history[user_id]['bill'] = create_bill(get_cost(current))
                     send_carousel(user_id, 'Выбранное задание\n',
                                   url=get_full_path(current[:-1], current[-1]))
                     send_keyboard(user_id, 'Чтобы получить ответ на выбранное задание, оплатите его по ссылке(qiwi)'
