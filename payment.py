@@ -1,7 +1,9 @@
-from config import *
+import os
+from dotenv import load_dotenv
 from pyqiwip2p import QiwiP2P
 
-p2p = QiwiP2P(auth_key=QIWI_TOKEN)
+load_dotenv()
+p2p = QiwiP2P(auth_key=os.getenv("QIWI_TOKEN"))
 
 
 def get_status(bill):

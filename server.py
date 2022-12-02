@@ -30,7 +30,6 @@ def run():
                         if len(current) == 6:
                             answers = [el for el in find(paths, current[:-1]) if
                                        (el[:-5] == current[-1][:-5] and el[-5] != '0') or (el[:-4] == current[-1][:-6])]
-                            # логика обработки нескольких фотографий с ответами
                             for ans in answers:
                                 send_photo(user_id, '*', get_full_path(current[:-1], ans))
                         elif len(current) == 5 and current[-2] == 'мк':
