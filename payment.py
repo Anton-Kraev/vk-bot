@@ -27,6 +27,8 @@ def get_cost(task):
         return 100
     if task[2] == 'Аналитическая геометрия' and task[3] == 'дз 2.2':
         return 75
+    if task[2] == 'Аналитическая геометрия' and task[3] == 'кр':
+        return 100
     if task[2] == 'Кратинты и ряды' and task[3] == 'дз 2ч1':
         if task[4] in ['Вычисление ротора поля']:
             return 35
@@ -62,3 +64,4 @@ def get_cost(task):
         if task[4] in ['Найти оценку параметров методом максимального правдоподобия']:
             return 150
         return 100
+    return 777
