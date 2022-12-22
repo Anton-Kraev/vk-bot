@@ -12,7 +12,7 @@ from vk_api.utils import get_random_id
 load_dotenv()
 session = vk_api.VkApi(token=os.getenv("VK_API_TOKEN"))
 vk = session.get_api()
-longpoll = VkLongPoll(session)
+longpoll = VkLongPoll(session, wait=25)
 upload = VkUpload(session)
 
 history = {}
