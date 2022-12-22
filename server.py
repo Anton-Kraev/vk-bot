@@ -99,7 +99,7 @@ def run():
                                                'нажимать на кнопку "Отмена", если вы оплатили задание, но еще не получили'
                                                ' ответ, так как это может привести к утере оплаты)',
                                       create_keyboard(['Проверить оплату', 'Отмена']))
-                    elif current[-1] == 'теория':
+                    elif current[-1] in ['теория', 'Теоретический вопрос', 'Тест']:
                         history[user_id]['bill'] = create_bill(get_cost(current))
                         send_carousel(user_id, 'Выбранная работа\n',
                                       title=current[-2], description=current[-1])
