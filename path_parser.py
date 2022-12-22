@@ -3,6 +3,7 @@ import os
 from dict import push
 from PIL import Image
 from vk import upload
+from photo_compression import resize
 
 
 def parse(path):
@@ -34,12 +35,11 @@ def upload_photos(path):
         for filename in filenames:
             file = dirname.replace('\\', '/') + '/' + filename
 
-            if filename[-6:-4] == '-0':
-                resized_photo = Image.open(file).resize((390, 240))
-                resized_photo.save(file)
-
             if file in photos.keys():
                 continue
+
+            if filename[-6:-4] == '-0':
+                resize(file)
 
             i += 1
             print(i, ' ' + filename)
@@ -56,5 +56,6 @@ parse('Начать')
 try:
     upload_photos('Начать')
 except:
+    print('Crashed')
     with open('photos.json', 'w') as f:
         json.dump(photos, f)

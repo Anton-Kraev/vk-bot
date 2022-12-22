@@ -116,8 +116,8 @@ def run():
                                       create_keyboard(['Назад', 'Начать заново']))
                 if len(current) == 6:
                     history[user_id]['bill'] = create_bill(get_cost(current))
-                    send_carousel(user_id, 'Выбранное задание\n',
-                                  url=get_full_path(current[:-1], current[-1]))
+                    path = get_full_path(current[:-1], current[-1])
+                    send_carousel(user_id, 'Выбранное задание\n', url=path[:-4]+'-car'+path[-4:])
                     send_keyboard(user_id, 'Чтобы получить ответ на выбранное задание, оплатите его по ссылке(qiwi)'
                                            ', нажав на кнопку "оплатить", а затем нажмите на кнопку "Проверить оплату".'
                                            'Чтобы вернуться к выбору заданий, нажмите на кнопку "Отмена"(не следует '
