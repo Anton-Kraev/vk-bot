@@ -14,7 +14,7 @@ def run():
                 if message == 'Отмена' and history.get(user_id) and \
                         (len(history[user_id]['current']) == 6 or
                          (len(history[user_id]['current']) == 5 and
-                          (history[user_id]['current'][-2] == 'мк' or history[user_id]['current'][-1] == 'теория'))):
+                          (history[user_id]['current'][-2] == 'мк' or history[user_id]['current'][-1] in ['теория', 'Теоретический вопрос', 'Тест']))):
                     history[user_id]['current'] = history[user_id]['current'][:-1]
                     reject_bill(history[user_id]['bill'])
                     history[user_id]['bill'] = None
