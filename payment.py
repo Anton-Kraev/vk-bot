@@ -58,10 +58,10 @@ def get_cost(task):
         if task[4] == 'теория':
             return 400
         return 150
-    if task[2] == 'Кратинты и ряды' and task[3] == 'см 1':
+    if task[2] == 'Тервер и матстат' and task[3] == 'см 1':
         return 75
-    if task[2] == 'Кратинты и ряды' and task[3] == 'см 2':
+    if task[2] == 'Тервер и матстат' and task[3] == 'см 2':
         if task[4] in ['Найти оценку параметров методом максимального правдоподобия']:
             return 150
         return 100
-    return 777
+    return 120
