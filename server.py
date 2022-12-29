@@ -15,7 +15,7 @@ def run():
                         (len(history[user_id]['current']) == 6 or
                          (len(history[user_id]['current']) == 5 and
                           (history[user_id]['current'][-2] == 'мк' or history[user_id]['current'][-1] in ['теория', 'Теоретический вопрос', 'Тест']))):
-                    history[user_id]['current'] = history[user_id]['current'][:-1]
+                    history[user_id]['current'] = history[user_id]['current'][:-1] if len(history[user_id]['current']) == 5 else history[user_id]['current'][:-2]
                     reject_bill(history[user_id]['bill'])
                     history[user_id]['bill'] = None
 
